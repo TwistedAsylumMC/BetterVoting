@@ -31,12 +31,12 @@ class GetTopVotersTask extends AsyncTask{
 		$result = $this->getResult();
 		$requester = $server->getPlayer($this->requester);
 		if($requester === null) return;
-		if($result === "Error: server key not found"){
-			$requester->sendMessage(TextFormat::RED . "This server has not provided a valid API key in their configuration");
-			return;
-		}
 		/** @var BetterVoting $plugin */
 		$plugin = $server->getPluginManager()->getPlugin("BetterVoting");
+		if(explode(" ", $result)[0] === "Error:"){
+			$requester->sendMessage(TextFormat::RED . "An error has occurred whilst trying to vote, contact an admin for support as it is most likely an issue with their API key.");
+			return;
+		}
 		$topvotes = $plugin->getConfig()->get("top-votes");
 		$votes = json_decode($result, true)["voters"];
 		$requester->sendMessage(str_replace("&", "§", isset($topvotes["title"]) ? $topvotes["title"] : "&aTop Votes This Month"));

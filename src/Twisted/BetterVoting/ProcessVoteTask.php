@@ -30,8 +30,8 @@ class ProcessVoteTask extends AsyncTask{
 		$result = $this->getResult();
 		$player = $server->getPlayer($this->username);
 		if($player === null) return;
-		if($result === "Error: server key not found"){
-			$player->sendMessage(TextFormat::RED . "This server has not provided a valid API key in their configuration");
+		if(explode(" ", $result)[0] === "Error:"){
+			$player->sendMessage(TextFormat::RED . "An error has occurred whilst trying to vote, contact an admin for support as it is most likely an issue with their API key.");
 			return;
 		}
 		if($result === "0"){

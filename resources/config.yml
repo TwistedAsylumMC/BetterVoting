@@ -15,23 +15,23 @@ claim:
   broadcast: "{real-name} has voted for free rewards!" # Message to be broadcast when a player votes
   message: "Thanks for voting for our server" # Message to send to the player who voted
   items:
-    # Items to be given to the player when they vote
-    # Item format: "ItemName:Damage:ICount:CustomName:EnchantName:EnchantLevel"
-    # Item IDs are not supported, use the item names instead
-    # Replace spaces with "_" for item names
-    # For no custom name/default item name, put "default"
-    # First 4 fields are required, enchants are optional
-    # You can have unlimited enchants, just follow the format "EnchantName:EnchantLevel:EnchantName:EnchantLevel" etc
-    # There is also support for PiggyCustomEnchants, use same format as normal enchants
-    - "diamond_sword:0:1:Vote Sword:sharpness:5:unbreaking:3"
-    - "diamond_pickaxe:0:1:default:efficiency:2:driller:3"
+  # Items to be given to the player when they vote
+  # Item format: "ItemName:Damage:ICount:CustomName:EnchantName:EnchantLevel"
+  # Item IDs are not supported, use the item names instead
+  # Replace spaces with "_" for item names
+  # For no custom name/default item name, put "default"
+  # First 4 fields are required, enchants are optional
+  # You can have unlimited enchants, just follow the format "EnchantName:EnchantLevel:EnchantName:EnchantLevel" etc
+  # There is also support for PiggyCustomEnchants, use same format as normal enchants
+  - "diamond_sword:0:1:Vote Sword:sharpness:5:unbreaking:3"
+  - "diamond_pickaxe:0:1:default:efficiency:2:driller:3"
   commands:
-    # Commands to be executed by console when a player votes
-    # Do not include "/" at the start of the command
-    - "title {real-name} title &aVote"
-    - "title {real-name} subtitle &7Thanks for voting!"
+  # Commands to be executed by console when a player votes
+  # Do not include "/" at the start of the command
+  - "title {real-name} title &aVote"
+  - "title {real-name} subtitle &7Thanks for voting!"
 top-votes:
   title: "&aTop Votes This Month" # Message sent before displaying top votes
-  display: 10 # Amount of top votes to dispay, can't be bigger than 500
+  display: 10 # Amount of top votes to disp;ay, can't be bigger than 500
   format: "&6{number}. &b{username}: &e{votes}" # Format of displaying top voters
 ...
