@@ -24,6 +24,8 @@ class BetterVoting extends PluginBase{
 	private $data = [];
 	/** @var null|Main $ce */
 	private $ce;
+	/** @var string[] $voting */
+	private $voting = [];
 
 	public function onEnable(): void{
 		$config = $this->getConfig();
@@ -44,6 +46,11 @@ class BetterVoting extends PluginBase{
 				$sender->sendMessage(TextFormat::RED . "This server has not provided a valid API key in their configuration");
 				return false;
 			}
+			if(in_array($sender->getName(), $this->voting)){
+				$sender->sendMessage(TextFormat::RED . "Please wait for your vote to process");
+				return false;
+			}
+			$this->voting[] = $sender->getName();
 			$this->getServer()->getAsyncPool()->submitTask(new ProcessVoteTask($this->apiKey, $sender->getName()));
 			return true;
 		}
@@ -138,6 +145,7 @@ class BetterVoting extends PluginBase{
 	}
 
 	public function claimVote(Player $player): void{
+		unset($this->voting[array_search($player->getName(), $this->voting)]);
 		$data = $this->data;
 		if(isset($data["broadcast"])) $player->getServer()->broadcastMessage($this->translateMessage($data["broadcast"], $player));
 		if(isset($data["message"])) $player->sendMessage($this->translateMessage($data["message"], $player));
