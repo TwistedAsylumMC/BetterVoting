@@ -29,20 +29,24 @@ class ProcessVoteTask extends AsyncTask{
 	public function onCompletion(Server $server): void{
 		$result = $this->getResult();
 		$player = $server->getPlayer($this->username);
-		if($player === null) return;
+		/** @var BetterVoting $main */
+		$plugin = $server->getPluginManager()->getPlugin("BetterVoting");
+		if($player === null || $plugin === null) return;
 		switch($result){
 			case "0":
+				$plugin->stopProcessing($player);
 				$player->sendMessage(TextFormat::RED . "You have not voted yet");
 				return;
 			case "1":
-				/** @var BetterVoting $main */
-				$main = $server->getPluginManager()->getPlugin("BetterVoting");
-				$main->claimVote($player);
+				$plugin->stopProcessing($player);
+				$plugin->claimVote($player);
 				return;
 			case "2":
+				$plugin->stopProcessing($player);
 				$player->sendMessage(TextFormat::RED . "You have already voted today");
 				return;
 			default:
+				$plugin->stopProcessing($player);
 				$player->sendMessage(TextFormat::RED . "An error has occurred whilst trying to vote, contact an admin for support as it is most likely an issue with their API key.");
 				return;
 		}
