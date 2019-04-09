@@ -145,7 +145,6 @@ class BetterVoting extends PluginBase{
 	}
 
 	public function claimVote(Player $player): void{
-		unset($this->processing[array_search($player->getName(), $this->processing)]);
 		$data = $this->data;
 		if(isset($data["broadcast"])) $player->getServer()->broadcastMessage($this->translateMessage($data["broadcast"], $player));
 		if(isset($data["message"])) $player->sendMessage($this->translateMessage($data["message"], $player));
@@ -154,5 +153,11 @@ class BetterVoting extends PluginBase{
 			else $player->getLevel()->dropItem($player, $reward);
 		}
 		if(isset($data["commands"]) && is_array($data["commands"])) foreach($data["commands"] as $command) $this->getServer()->dispatchCommand(new ConsoleCommandSender(), $this->translateMessage($command, $player));
+	}
+	
+	public function stopProcessing(string $player): void{
+		if(isset($this->processing[$player])){
+			unset($this->processing[array_search($player, $this->processing)]);
+		}
 	}
 }
