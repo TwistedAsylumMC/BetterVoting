@@ -50,7 +50,7 @@ class BetterVoting extends PluginBase{
 				$sender->sendMessage(TextFormat::RED . "Your vote is already processing");
 				return false;
 			}
-			$this->processing[] = $sender->getName();
+			$this->processing[spl_object_id($sender)] = $sender;
 			$this->getServer()->getAsyncPool()->submitTask(new ProcessVoteTask($this->apiKey, $sender->getName()));
 			return true;
 		}
@@ -155,9 +155,7 @@ class BetterVoting extends PluginBase{
 		if(isset($data["commands"]) && is_array($data["commands"])) foreach($data["commands"] as $command) $this->getServer()->dispatchCommand(new ConsoleCommandSender(), $this->translateMessage($command, $player));
 	}
 	
-	public function stopProcessing(string $player): void{
-		if(isset($this->processing[$player])){
-			unset($this->processing[array_search($player, $this->processing)]);
-		}
+	public function stopProcessing(Player $player): void{
+		unset($this->processing[spl_object_id($player)]);
 	}
 }
