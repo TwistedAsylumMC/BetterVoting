@@ -57,7 +57,7 @@ class BetterVoting extends PluginBase{
 		switch($args[0]){
 			case "reload":
 				if(!$sender->hasPermission("bettervoting.reload")){
-					$sender->sendMessage(TextFormat::RED . "You do not have permission to use this command");
+					$sender->sendMessage(TextFormat::RED . "You do not have permission to use this cmd");
 					break;
 				}
 				$config = new Config($this->getDataFolder() . "config.yml", Config::YAML);
