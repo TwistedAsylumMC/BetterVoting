@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace Twisted\BetterVoting;
 
-use DaPigGuy\PiggyCustomEnchants\CustomEnchants\CustomEnchantsIds;
-use DaPigGuy\PiggyCustomEnchants\Main;
+use DaPigGuy\PiggyCustomEnchants\enchants\CustomEnchantIds;
+use DaPigGuy\PiggyCustomEnchants\PiggyCustomEnchants;
 use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
 use pocketmine\command\ConsoleCommandSender;
@@ -22,7 +22,7 @@ class BetterVoting extends PluginBase{
 	private $apiKey = null;
 	/** @var array $data */
 	private $data = [];
-	/** @var null|Main $ce */
+	/** @var null|PiggyCustomEnchants $ce */
 	private $ce;
 	/** @var string[] $processing */
 	private $processing = [];
@@ -134,10 +134,8 @@ class BetterVoting extends PluginBase{
 			}
 			foreach($enchants as $enchant => $level){
 				$id = Enchantment::class . "::" . strtoupper($enchant);
-				$ceid = null;
-				if(!defined($id) && $this->ce !== null) $ceid = CustomEnchantsIds::class . "::" . strtoupper($enchant);
+				if(!defined($id) && $this->ce !== null && $this->ce->isEnabled()) $id = CustomEnchantIds::class . "::" . strtoupper($enchant);
 				if(defined($id)) $reward->addEnchantment(new EnchantmentInstance(Enchantment::getEnchantment(constant($id)), $level));
-				if($ceid !== null && defined($ceid)) $this->ce->addEnchantment($reward, constant($ceid), $level);
 			}
 			$rewards[] = $reward;
 		}
