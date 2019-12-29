@@ -1,4 +1,23 @@
 <?php
+/**
+ *      ___        __  __              ____  ______
+ *     /   | ___  / /_/ /_  ___  _____/ __ \/ ____/
+ *    / /| |/ _ \/ __/ __ \/ _ \/ ___/ /_/ / __/
+ *   / ___ /  __/ /_/ / / /  __/ /  / ____/ /___
+ *  /_/  |_\___/\__/_/ /_/\___/_/  /_/   /_____/
+ *
+ * Copyright (c) KingOfTurkey38 2019.
+ * Last Modified 29/12/19 23:53
+ *
+ * This plugin is developed and maintained by KingOfTurkey38.
+ *
+ * This plugin is distributed under a commercial license and you are only allowed to use it in the way and
+ * extent and under conditions explicitly agreed on with KingOfTurkey38 in writing.
+ *
+ * By the license, you're not allowed to remove this documented snippet.
+ *
+ */
+
 declare(strict_types=1);
 
 namespace Twisted\BetterVoting;
@@ -15,6 +34,7 @@ use pocketmine\Player;
 use pocketmine\plugin\PluginBase;
 use pocketmine\utils\Config;
 use pocketmine\utils\TextFormat;
+use Twisted\BetterVoting\events\PlayerVoteEvent;
 
 class BetterVoting extends PluginBase{
 
@@ -143,6 +163,8 @@ class BetterVoting extends PluginBase{
 	}
 
 	public function claimVote(Player $player): void{
+        $voteEvent = new PlayerVoteEvent($player);
+        $voteEvent->call();
 		$data = $this->data;
 		if(isset($data["broadcast"])) $player->getServer()->broadcastMessage($this->translateMessage($data["broadcast"], $player));
 		if(isset($data["message"])) $player->sendMessage($this->translateMessage($data["message"], $player));
