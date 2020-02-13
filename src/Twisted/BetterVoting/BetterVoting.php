@@ -50,7 +50,7 @@ class BetterVoting extends PluginBase{
 				$sender->sendMessage(TextFormat::RED . "Your vote is already processing");
 				return false;
 			}
-			$this->processing[spl_object_id($sender)] = $sender;
+			$this->processing[$sender->getName()] = $sender;
 			$this->getServer()->getAsyncPool()->submitTask(new ProcessVoteTask($this->apiKey, $sender->getName()));
 			return true;
 		}
