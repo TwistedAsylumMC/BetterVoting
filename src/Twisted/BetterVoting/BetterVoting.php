@@ -154,6 +154,6 @@ class BetterVoting extends PluginBase{
 	}
 	
 	public function stopProcessing(Player $player): void{
-		unset($this->processing[spl_object_id($player)]);
+		unset($this->processing[$player->getName()]);
 	}
 }
