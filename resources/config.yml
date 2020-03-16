@@ -2,7 +2,7 @@ api-key: "" # API Key from https://minecraftpocket-servers.com/servers/manage/.
 commands:
     # Commands to be executed when a player claims their vote.
     # They should not include the first "/" and they should be encased in quotes.
-    # It is recommended to encase the username variable in quotes to make sure it
+    # It is recommended to encase the username variable in escaped quotes (\") to make sure it
     #  is sent as one argument to the command to ensure they get all of their rewards.
     # List of useable variables:
     #  {username}: The player's in game username
@@ -11,8 +11,8 @@ commands:
     #  {y}: The player's Y coordinate
     #  {z}: The player's Z coordinate
     - "say {username} has just voted!"
-    - "title {username} title &aVote"
-    - "title {username} subtitle &7Thanks for voting!"
+    - "title \"{username}\" title &aVote"
+    - "title \"{username}\" subtitle &7Thanks for voting!"
 # If droprewards is true, rewards will be dropped on the floor if a player's inventory is full
 # If droprewards if false, rewards will dissapear if a player's inventory is full
 droprewards: true
