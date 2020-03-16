@@ -4,4 +4,5 @@ branches:
 projects:
     BetterVoting:
         path: ""
+        icon: "assets/logo.png"
 ...
