@@ -1,7 +1,7 @@
 --- # Poggit-CI Manifest. Open the CI at https://poggit.pmmp.io/ci/TwistedAsylumMC/BetterVoting
 branches:
-- master
+    - master
 projects:
-  BetterVoting:
-    path: ""
+    BetterVoting:
+        path: ""
 ...

@@ -1,37 +1,52 @@
----
-# API Key from https://minecraftpocket-servers.com
-api-key: ""
-claim:
-  # Message Variables:
-  # {real-name} - The voter's full username
-  # {display-name} - The voter's display name
-  # & - Change message color
-  # {x} - Voter's X coordinate
-  # {floor-x} - Voter's X coordinate rounded
-  # {y} - Voter's Y coordinate
-  # {floor-y} - Voter's Y coordinate rounded
-  # {z} - Voter's Z coordinate
-  # {floor-z} - Voter's Z coordinate rounded
-  broadcast: "{real-name} has voted for free rewards!" # Message to be broadcast when a player votes
-  message: "Thanks for voting for our server" # Message to send to the player who voted
-  items:
-  # Items to be given to the player when they vote
-  # Item format: "ItemName:Damage:ICount:CustomName:EnchantName:EnchantLevel"
-  # Item IDs are not supported, use the item names instead
-  # Replace spaces with "_" for item names
-  # For no custom name/default item name, put "default"
-  # First 4 fields are required, enchants are optional
-  # You can have unlimited enchants, just follow the format "EnchantName:EnchantLevel:EnchantName:EnchantLevel" etc
-  # There is also support for PiggyCustomEnchants, use same format as normal enchants
-  - "diamond_sword:0:1:Vote Sword:sharpness:5:unbreaking:3"
-  - "diamond_pickaxe:0:1:default:efficiency:2:driller:3"
-  commands:
-  # Commands to be executed by console when a player votes
-  # Do not include "/" at the start of the command
-  - "title {real-name} title &aVote"
-  - "title {real-name} subtitle &7Thanks for voting!"
-top-votes:
-  title: "&aTop Votes This Month" # Message sent before displaying top votes
-  display: 10 # Amount of top votes to disp;ay, can't be bigger than 500
-  format: "&6{number}. &b{username}: &e{votes}" # Format of displaying top voters
-...
+api-key: "" # API Key from https://minecraftpocket-servers.com/servers/manage/.
+commands:
+    # Commands to be executed when a player claims their vote.
+    # They should not include the first "/" and they should be encased in quotes.
+    # It is recommended to encase the username variable in quotes to make sure it
+    #  is sent as one argument to the command to ensure they get all of their rewards.
+    # List of useable variables:
+    #  {username}: The player's in game username
+    #  {displayname}: The player's display/nick name
+    #  {x}: The player's X coordinate
+    #  {y}: The player's Y coordinate
+    #  {z}: The player's Z coordinate
+    - "say {username} has just voted!"
+    - "title {username} title &aVote"
+    - "title {username} subtitle &7Thanks for voting!"
+# If droprewards is true, rewards will be dropped on the floor if a player's inventory is full
+# If droprewards if false, rewards will dissapear if a player's inventory is full
+droprewards: true
+items:
+    # Items to be given to a player when they claim their vote.
+    # They should follow the format: "item_name:meta:amount:name:enchant_name:enchant_level".
+    #  "name" can either be a custom name, or "default" to have no custom name.
+    #  "item_name", "meta", "amount" & "name" must all come before any enchantments.
+    #  "enchant_name:enchant_level" can be repeated as many times as you want.
+    # Enchantments from PiggyCustomEnchants are also supported, use them the same as regular enchants.
+    # They should also always be encased in quotes to make sure they get parsed properly.
+    - "diamond_block:0:32"
+    - "steak:0:64:Porkchops"
+    - "diamond_sword:0:1:&lPowerful Sword:sharpness:5:unbreaking:3"
+    - "bow:0:1:&dPiggy's Bow:power:5:unbreaking:3:porkified:3"
+messages:
+    info:
+        title: "&aThis server's vote information:"
+        content: "&aUptime: {uptime}\n&aScore: {score}\n&aRank: {rank}\n&aVotes: {votes}\n&aFavorited: {favorited}\n&aComments: {comments}"
+    noperms: "&cYou do not have permission to use this command."
+    reload:
+        success: "&aYou have reloaded the server's vote configuration."
+    top:
+        novoters: "&cThere are no top voters."
+        title: "&aTop voters this month:"
+        format: "&a{place}. {username}: {votes}"
+    vote:
+        alreadyclaimed: "&cYou have already claimed your vote."
+        alreadyprocessing: "&cYour vote is already being processed."
+        claimed: "&aThank you for voting! You have received your rewards."
+        error: "&cUnable to claim your vote, please try again later."
+        notvoted: "&cYou have not voted yet."
+        processing: "&aYour vote is being processed, please wait."
+        usage:
+            notplayer: "&cUse '/vote <info|reload|top>'."
+            other: "&cUse '/vote [info|top]."
+            reloadperm: "&cUse '/vote [info|reload|top]."
