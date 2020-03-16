@@ -1,0 +1,17 @@
+name: BetterVoting
+description: A better voting plugin for PocketMine-MP
+
+main: twisted\bettervoting\BetterVoting
+version: 2.0.0
+api: 3.0.0
+softdepend: PiggyCustomEnchants
+
+author: Twisted
+
+commands:
+    vote:
+        description: Claim your vote reward
+
+permissions:
+    bettervoting.command.reload:
+        default: op
