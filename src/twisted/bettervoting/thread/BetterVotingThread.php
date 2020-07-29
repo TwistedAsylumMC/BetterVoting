@@ -221,7 +221,6 @@ final class BetterVotingThread extends Thread{
 	 */
 	public function isActionInQueue(int $action, ?Player $player = null) : bool{
 		foreach($this->actionQueue as $queued){
-			$queued = igbinary_unserialize($queued);
 			if($queued["type"] === $action && ($player === null || $queued["player"] === $player->getName())){
 				return true;
 			}

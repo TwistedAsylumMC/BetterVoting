@@ -8,6 +8,10 @@ softdepend: PiggyCustomEnchants
 
 author: Twisted
 
+commands:
+    vote:
+        description: Claim your vote reward
+
 permissions:
     bettervoting.command.reload:
         default: op
