@@ -77,7 +77,7 @@ final class BetterVotingThread extends Thread{
 				switch($action["type"]){
 					case self::ACTION_VALIDATE_VOTE:
 						$player = $action["player"];
-						curl_setopt($ch, CURLOPT_URL, $this->getApiUrl("object=votes&element=claim&key=" . $this->apiKey . "&username=" . $player));
+						curl_setopt($ch, CURLOPT_URL, $this->getApiUrl("object=votes&element=claim&key=" . $this->apiKey . "&username=" . str_replace(" ", "%20", $player)));
 						curl_setopt($ch, CURLOPT_POST, false);
 
 						$action["result"] = curl_exec($ch);
@@ -87,7 +87,7 @@ final class BetterVotingThread extends Thread{
 						break;
 					case self::ACTION_CLAIM_VOTE:
 						$player = $action["player"];
-						curl_setopt($ch, CURLOPT_URL, $this->getApiUrl("action=post&object=votes&element=claim&key=" . $this->apiKey . "&username=" . $player));
+						curl_setopt($ch, CURLOPT_URL, $this->getApiUrl("action=post&object=votes&element=claim&key=" . $this->apiKey . "&username=" . str_replace(" ", "%20", $player)));
 						curl_setopt($ch, CURLOPT_POST, true);
 
 						$action["result"] = curl_exec($ch);
