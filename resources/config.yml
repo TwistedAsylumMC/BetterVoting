@@ -1,4 +1,6 @@
 api-key: "" # API Key from https://minecraftpocket-servers.com/servers/manage/.
+# If you want it to do a vote claim check on player join set it to true else false
+join-check: true
 commands:
     # Commands to be executed when a player claims their vote.
     # They should not include the first "/" and they should be encased in quotes.

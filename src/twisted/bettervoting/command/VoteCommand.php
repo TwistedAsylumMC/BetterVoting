@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace twisted\bettervoting\command;
 
-use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
+use pocketmine\command\PluginCommand;
 use pocketmine\Player;
 use pocketmine\utils\TextFormat;
 use twisted\bettervoting\BetterVoting;
@@ -13,13 +13,14 @@ use twisted\bettervoting\thread\BetterVotingThread;
 use function count;
 use function str_replace;
 
-class VoteCommand extends Command{
+class VoteCommand extends PluginCommand {
 
 	/** @var BetterVoting */
 	private $plugin;
 
 	public function __construct(BetterVoting $plugin){
-		parent::__construct("vote", "Claim your vote on the server");
+		parent::__construct("vote", $plugin);
+		$this->setDescription("Claim your vote on the server");
 
 		$this->plugin = $plugin;
 	}

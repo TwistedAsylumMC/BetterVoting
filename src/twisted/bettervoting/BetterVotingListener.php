@@ -18,14 +18,16 @@ class BetterVotingListener implements Listener{
 	}
 
 	public function onPlayerJoin(PlayerJoinEvent $event) : void{
-		$player = $event->getPlayer();
-		if(BetterVotingCache::hasUnclaimedVote($player)){
-			$thread = $this->plugin->getVoteThread();
-			$this->plugin->getScheduler()->scheduleDelayedTask(new ClosureTask(static function() use ($player, $thread) : void{
-				if($player->isOnline()){
-					$thread->addActionToQueue(BetterVotingThread::ACTION_CLAIM_VOTE, $player);
-				}
-			}), 20);
+		if($this->plugin->getConfig()->get("join-check", true)) {
+			$player = $event->getPlayer();
+			if(BetterVotingCache::hasUnclaimedVote($player)) {
+				$thread = $this->plugin->getVoteThread();
+				$this->plugin->getScheduler()->scheduleDelayedTask(new ClosureTask(static function () use ($player, $thread) : void {
+					if($player->isOnline()) {
+						$thread->addActionToQueue(BetterVotingThread::ACTION_CLAIM_VOTE, $player);
+					}
+				}), 20);
+			}
 		}
 	}
 }
